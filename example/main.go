@@ -5,11 +5,20 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/tomsteele/boom"
+	"github.com/stacktitan/boom"
 )
 
+type vError struct {
+	Source string   `json:"source"`
+	Keys   []string `json:"keys"`
+}
+
 func main() {
-	err := boom.BadRequest("invalid payload", nil)
+	validationError := map[string]interface{}{"validation": vError{
+		Source: "payload",
+		Keys:   []string{"email"},
+	}}
+	err := boom.BadRequest("invalid payload", validationError)
 	fmt.Println(err)
 	data, err := json.Marshal(err)
 	if err != nil {
