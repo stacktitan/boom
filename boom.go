@@ -121,9 +121,14 @@ func BadImplementation(err error) error {
 	return create(500, "An internal server error occurred", nil, err)
 }
 
-// BadRequest returns a 400 Bad Request.
+// BadRequest returns 400 Bad Request.
 func BadRequest(message string, data map[string]interface{}) error {
 	return create(400, message, data, nil)
+}
+
+// Unauthorized returns 401 Unauthorized.
+func Unauthorized(message string) error {
+	return create(401, message, nil, nil)
 }
 
 // Forbidden returns 403 Forbidden.
@@ -131,7 +136,12 @@ func Forbidden(message string) error {
 	return create(403, message, nil, nil)
 }
 
-// Unauthorized returns a 401 Unauthorized.
-func Unauthorized(message string) error {
-	return create(401, message, nil, nil)
+// NotFound returns 404 Not Found.
+func NotFound(message string) error {
+	return create(404, message, nil, nil)
+}
+
+// RangeNotSatisfiable returns 416 Range Not Satisfiable.
+func RangeNotSatisfiable(message string, data map[string]interface{}) error {
+	return create(416, message, data, nil)
 }
